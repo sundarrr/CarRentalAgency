@@ -18,7 +18,7 @@ var refresh = function() {
 	   		$scope.vehicles = response.data;
 	   		$scope.car = {};
 	   	},function (error){	
-	   		console.log("Error from login");	
+	   		console.log("Error from refresh 1");	
 	   	});
 	   	$http({
 	      method: 'get' , 
@@ -28,7 +28,7 @@ var refresh = function() {
 	   		$scope.customers = response.data;
 	   		$scope.cus = {};
 	   	},function (error){	
-	   		console.log("Error from login");	
+	   		console.log("Error from refresh 2");	
 	   	});
 	};
 
