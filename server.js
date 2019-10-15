@@ -4,9 +4,7 @@ var mongojs = require('mongojs');
 var db = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-00-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['car']);
 var dbc = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-00-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['customer']);
 var dbr = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-00-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['Reservation']);
-//cluster0-shard-00-00-tiikr.mongodb.net
-//mongodb://Sundar:sundar24@cluster0-tiikr.mongodb.net/test?authSource=admin&ssl=true
-//mongodb://Balaganesh:B%40la1998@backendtaskcluster-shard-00-00-rcsar.mongodb.net/test?authSource=admin&ssl=true
+
 
 
 var bodyparser = require('body-parser');
@@ -82,16 +80,12 @@ app.get('/checkavail/:from/:to/:cap/:mod', function(req , res){
     console.log("fromdate "+fromdate);
     console.log("todate "+todate);
    dbr.Reservation.find({ 
-			/*"$or": [
-	        { "issue_date": { "$gt": new Date(todate)}}, 
-	        { "return_date": { "$lt": new Date(fromdate)}}
-	    	]*/
 	    	"$or" : [
         { "$and" : [ { "issue_date": { "$gte": new Date(fromdate)}}, { "issue_date": { "$lte": new Date(todate)} }] },
         { "$and" : [ { "return_date": { "$gte": new Date(fromdate)}}, { "return_date": { "$lte": new Date(todate)} }] }
     ] 
 	}
-,function(err, docs){  //,{car_id:1,_id:0}
+,function(err, docs){  
 	if(err)
 	{	
 		console.log("Error from /server/Reservation");
@@ -110,8 +104,7 @@ app.get('/checkavail/:from/:to/:cap/:mod', function(req , res){
 	    if(capacity=='undefined'&& amodel!='undefined'){
 			db.car.find({
 				"$and": [
-		        {"id":{"$nin":arr}}, 
-		        //{ "seating_capacity": capacity},
+		        {"id":{"$nin":arr}}, 		       
 		        { "model":amodel}
 		    	] },function(err,doc){
 				res.end(JSON.stringify(doc));			
@@ -131,8 +124,6 @@ app.get('/checkavail/:from/:to/:cap/:mod', function(req , res){
 	        db.car.find({
 				"$and": [
 		        {"id":{"$nin":arr}} 
-		        //{"seating_capacity": capacity}
-		        //{ "model":amodel}
 		    	] },function(err,doc){
 				res.end(JSON.stringify(doc));			
 			});	
