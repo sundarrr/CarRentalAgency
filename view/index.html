@@ -1,0 +1,175 @@
+<!DOCTYPE>
+
+<html ng-app="MyApp">   <!–– cdn link for Angular Js ––>
+
+    <head>
+    	<!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script><!–– cdn link for Angular Js ––>
+    	
+    	<title>Car Rental Agency</title>
+	
+	</head>
+	
+	<body>
+
+         
+	    <div class="container" ng-controller="AppCtrl">
+	        
+	        <h1>Car Rental Agency</h1>
+	        <h2>Add new cars</h2>
+	        <!--<input ng-model="test"><!–– Angular Js Tw Way Binding––>
+	        {{test}}-->
+            <table class="table">
+               <thead>
+			        <tr>
+			           <th>Vehicle Number</th>
+                       <th>type</th>
+			           <th>Brand</th>         
+			           <th>Model</th>
+			           <th>Colour</th>
+			           <th>Seating Capacity</th>
+			           <th>Rent(per day)</th>
+			           <th>City</th>
+			        </tr>
+                </thead>
+                <tbody>
+                	<tr>
+			          <td><input class="form-control" ng-model="car.vehicle_number"></td>
+			          <td><input class="form-control" ng-model="car.type"></td>
+			          <td><input class="form-control" ng-model="car.brand"></td>
+			          <td><input class="form-control" ng-model="car.model"></td>
+			          <td><input class="form-control" ng-model="car.colour"></td>
+			          <td><input class="form-control" ng-model="car.seating_capacity"></td>
+			          <td><input class="form-control" ng-model="car.rent"></td>
+			          <td><input class="form-control" ng-model="car.city"></td>
+			          <td><button class="btn btn-primary" ng-click="addCar()" style="width: 100px;">Add Car</button></td>
+    				  <td><button class="btn btn-info" ng-click="update()">Update</button></td>
+    				</tr>
+			        <tr ng-repeat="car in vehicles">
+			          <td>{{car.vehicle_number}}</td>
+			          <td>{{car.type}}</td>
+			          <td>{{car.brand}}</td>
+			          <td>{{car.model}}</td>
+			          <td>{{car.colour}}</td>
+			          <td>{{car.seating_capacity}}</td>
+			          <td>{{car.rent}}</td>
+			          <td>{{car.city}}</td>
+			          <td><button class="btn btn-danger" ng-click="remove(car._id)">Remove</button></td>
+			          <td><button class="btn btn-warning" ng-click="edit(car._id)">Edit</button></td>
+			        </tr>
+                </tbody>
+            </table>	        
+	        <br><br><br><br><br><br>
+	        <h3>Book a Table</h3>
+	        <table class="table">
+               <thead>
+			        <tr>
+			           <th>Model</th>
+                       <th>Seating-Capacity</th>
+                       <th>Issue-Date</th>
+			           <th>Return-Date</th>         
+			           
+			        </tr>
+                </thead>
+
+                <tbody>
+                	<tr>
+			          <td><input class="form-control" ng-model="chk.fmodel"></td>
+			          <td><input class="form-control" ng-model="chk.fcapacity"></td>
+			          <td><input type="date" class="form-control" ng-model="chk.ffrom" required></td>
+			          <td><input type="date" class="form-control" ng-model="chk.fto" required></td>
+			          
+			          <td><button class="btn btn-primary" ng-click="checkAvailability(chk.ffrom,chk.fto,chk.fcapacity,chk.fmodel)" style="width: 150px;">Check Availability</button></td>
+    				</tr>
+    				<thead>
+			        <tr>
+			           <th>Vehicle Number</th>
+                       <th>type</th>
+			           <th>Brand</th>         
+			           <th>Model</th>
+			           <th>Colour</th>
+			           <th>Seating Capacity</th>
+			           <th>Rent(per day)</th>
+			           <th>City</th>
+			        </tr>
+                    </thead>
+			        <tr ng-repeat="car in avail">
+			          <td>{{car.vehicle_number}}</td>
+			          <td>{{car.type}}</td>
+			          <td>{{car.brand}}</td>
+			          <td>{{car.model}}</td>
+			          <td>{{car.colour}}</td>
+			          <td>{{car.seating_capacity}}</td>
+			          <td>{{car.rent}}</td>
+			          <td>{{car.city}}</td>
+			          <td><button class="btn btn-primary" data-toggle="book" ng-click="getcarid(car._id)" onclick="document.getElementById('book').style.display='block'">Book</button></td>
+
+			        </tr>
+                </tbody>
+            </table>
+             <br><br><br><br><br><br>
+            <div>
+					<form  id="book" style="display: none; width:500px;">
+			  <h3>Booking Details</h3>
+			  <div class="form-group">
+			    <label>Name:</label>
+			    <input class="form-control" ng-model="user.name">
+			  </div>
+			  <div class="form-group">
+			    <label>Mobile number:</label>
+			    <input class="form-control" ng-model="user.number">
+			  </div>
+			  <div class="form-group">
+			    <label>Age:</label>
+			    <input class="form-control" ng-model="user.age">
+			  </div>
+			  <div class="form-group">
+			    <label >Address:</label>
+			    <input class="form-control" ng-model="user.address">
+			  </div>
+			  <div class="form-group">
+			    <label>From date:</label>
+			    <input type="date" class="form-control" ng-model="user.from">
+			  </div>
+			  <div class="form-group">
+			    <label >To date:</label>
+			    <input type="date" class="form-control" ng-model="user.to">
+			  </div>
+			  <button ng-click="confirmbook()" onclick="document.getElementById('book').style.display='none'" type="submit" class="btn btn-success">Submit</button>
+			</form>
+
+			</div>
+            <br><br><br><br><br><br>
+            <h2>Customer</h2>
+			<table class="table">
+               <thead>
+			        <tr>
+			           <th>Name</th>
+                       <th>PhoneNumber</th>
+			           <th>Age</th>         
+			           <th>Address</th>
+			        </tr>
+                </thead>
+                <tbody>
+			        <tr ng-repeat="cus in customers">
+			          <td>{{cus.name}}</td>
+			          <td>{{cus.number}}</td>
+			          <td>{{cus.age}}</td>
+			          <td>{{cus.address}}</td>
+			        </tr>
+                </tbody>
+            </table>
+
+        </div>	
+	
+	<script src="Controller/controller.js"></script>
+	
+	</body>
+
+</html>
