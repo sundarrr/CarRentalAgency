@@ -240,5 +240,4 @@ app.put('/updatecarlist/:id',function(req,res){
              res.json(doc);
 	});
 });
-app.listen(3000);
 console.log("running");
