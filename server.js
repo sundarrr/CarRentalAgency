@@ -1,9 +1,9 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-00-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['car']);
-var dbc = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-00-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['customer']);
-var dbr = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-00-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['Reservation']);
+var db = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-01-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['car']);
+var dbc = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-01-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['customer']);
+var dbr = mongojs('mongodb://Sundar:sundar24@cluster0-shard-00-01-tiikr.mongodb.net/Car_Rental_Agency?authSource=admin&ssl=true',['Reservation']);
 
 
 
